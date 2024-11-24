@@ -23,26 +23,23 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            // Set warna tema ke biru atau hijau untuk menyesuaikan tema teknologi
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('TechMedix') // Added this line to change the navbar brand name
             ->colors([
-                'primary' => Color::Blue,  // Ganti warna menjadi biru atau sesuaikan
-                'accent' => Color::Gray,   // Sesuaikan dengan warna teknologi atau hardware
+                'primary' => Color::Blue,
+                'accent' => Color::Gray,
             ])
-            // Menemukan dan mendiscover resource atau halaman baru yang relevan dengan diagnosis
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,  // Halaman utama dasbor
+                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,  // Menambahkan widget untuk akun pengguna
-                // Menghapus FilamentInfoWidget yang tidak relevan
-                // Menambahkan widget yang relevan untuk diagnosis kerusakan hardware
+                Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

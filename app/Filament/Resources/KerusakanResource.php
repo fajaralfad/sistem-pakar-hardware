@@ -5,30 +5,47 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\KerusakanResource\Pages;
 use App\Models\Kerusakan;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Resources\Table;
 
 class KerusakanResource extends Resource
 {
     protected static ?string $model = Kerusakan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // Ganti ikon dengan ikon yang sesuai
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-triangle'; // Ikon yang relevan dengan kerusakan
+
+    // Mengubah label di navigasi
+    protected static ?string $navigationLabel = 'Kerusakan';
+    protected static ?string $modelLabel = 'Kerusakan';
+    protected static ?string $pluralModelLabel = 'Kerusakan';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                TextInput::make('nama_kerusakan')
-                    ->label('Nama Kerusakan')
-                    ->required()
-                    ->maxLength(255),
-                Textarea::make('deskripsi')
-                    ->label('Deskripsi')
-                    ->required(),
+                Card::make()
+                    ->schema([
+                        TextInput::make('nama_kerusakan')
+                            ->label('Nama Kerusakan')
+                            ->required()
+                            ->placeholder('Masukkan nama kerusakan')
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+
+                        Textarea::make('deskripsi')
+                            ->label('Deskripsi')
+                            ->required()
+                            ->placeholder('Masukkan deskripsi kerusakan')
+                            ->rows(5)
+                            ->columnSpan('full'),
+                    ])
+                    ->columns(1),
             ]);
     }
 
@@ -39,16 +56,20 @@ class KerusakanResource extends Resource
                 TextColumn::make('nama_kerusakan')
                     ->label('Nama Kerusakan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
+                    
                 TextColumn::make('deskripsi')
                     ->label('Deskripsi')
-                    ->limit(50), // Batasi panjang teks untuk tampilan
+                    ->limit(50)
+                    ->wrap(),
             ])
-            ->filters([
-                // Tambahkan filter jika diperlukan
-            ])
+            ->defaultSort('nama_kerusakan', 'asc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
