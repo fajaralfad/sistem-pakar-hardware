@@ -14,6 +14,35 @@
         
         body {
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        .navbar-scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section Styles */
+        .hero-wrapper {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+            position: relative;
+            background-color: #000842;
+            overflow: hidden;
+        }
+
+        .hero-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .hero-pattern {
@@ -22,7 +51,6 @@
                 radial-gradient(at 47% 33%, hsl(240.00, 100%, 15%) 0, transparent 59%),
                 radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
             position: relative;
-            overflow: hidden;
         }
 
         .hero-pattern::before {
@@ -35,38 +63,10 @@
             animation: move-background 20s linear infinite;
         }
 
+        /* Animation Keyframes */
         @keyframes move-background {
             0% { transform: translate(0, 0); }
             100% { transform: translate(-50%, -50%); }
-        }
-
-        .typing-container {
-            display: inline-block;
-            margin-left: 8px;
-        }
-
-        .glow-effect {
-            position: relative;
-        }
-
-        .glow-effect::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            filter: blur(40px);
-            z-index: 0;
-        }
-
-        .hero-card {
-            backdrop-filter: blur(8px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -75,114 +75,202 @@
             100% { transform: translateY(0px); }
         }
 
-        .slide-in {
+        /* Hero Card Styles */
+        .hero-card {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .slide-in.active {
+        .hero-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Content Animation Styles */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Features Section Animation */
+        .feature-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
     </style>
 </head>
-
-
 <body>
-    <!-- Navbar -->
-    <div class="navbar bg-base-100 fixed top-0 z-50 shadow-lg backdrop-blur-lg bg-opacity-90">
-        <div class="navbar-start">
-            <div class="dropdown">
-                <label tabindex="0" class="btn btn-ghost lg:hidden">
-                    <i class="fas fa-bars"></i>
-                </label>
-                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="/diagnosa">Diagnosis</a></li>
-                    <li><a href="#how-it-works">How it Works</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </div>
-            <a href="/" class="btn btn-ghost normal-case text-xl">
-                    <i class="fas fa-microchip text-primary mr-2"></i>
-                    TechDiagnose Pro
-                </a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="#features">Features</a></li>
-                <li><a href="/diagnosa">Diagnosis</a></li>
-                <li><a href="#how-it-works">How it Works</a></li>
-                <li><a href="#faq">FAQ</a></li>
+
+<!-- Navbar -->
+<div class="navbar bg-base-100 fixed top-0 z-50 shadow-lg backdrop-blur-lg bg-opacity-90">
+    <!-- Navbar Start -->
+    <div class="navbar-start">
+        <!-- Mobile Menu -->
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost lg:hidden hover:bg-base-200 transition-all duration-200">
+                <i class="fas fa-bars text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"></i>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-lg w-52 gap-1">
+                <li><a href="#features" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Features</a></li>
+                <li><a href="/diagnosa" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Diagnosis</a></li>
+                <li><a href="#how-it-works" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">How it Works</a></li>
+                <li><a href="#faq" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">FAQ</a></li>
             </ul>
         </div>
-        <div class="navbar-end">
-            <a href="/admin/login" class="btn btn-primary">Login Admin</a>
-        </div>
+        <!-- Logo -->
+        <a href="/" class="btn btn-ghost normal-case text-xl font-bold hover:bg-base-200 transition-all duration-200">
+            <i class="fas fa-microchip text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mr-2"></i>
+            <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">TechMedix</span>
+        </a>
     </div>
 
+    <!-- Desktop Menu -->
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-2 gap-2">
+            <li>
+                <a href="#features" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Features
+                </a>
+            </li>
+            <li>
+                <a href="/diagnosa" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Diagnosis
+                </a>
+            </li>
+            <li>
+                <a href="#how-it-works" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    How it Works
+                </a>
+            </li>
+            <li>
+                <a href="#faq" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    FAQ
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Admin Access -->
+    <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle p-0 hover:bg-base-200 transition-all duration-200">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-base-300 hover:border-primary/30 transition-all duration-300">
+                    <i class="fas fa-user-shield bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-lg"></i>
+                </div>
+            </label>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-lg w-60 gap-1">
+                <li class="menu-title px-4 py-2">
+                    <span class="text-sm font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent uppercase tracking-wider">Admin Portal</span>
+                </li>
+                <div class="divider my-0"></div>
+                <li>
+                    <a href="/admin/login" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-sign-in-alt text-base"></i>
+                        <span>Sign In to Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/help" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-question-circle text-base"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/contact" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-headset text-base"></i>
+                        <span>Contact Admin</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
     <!-- Hero Section -->
-    <div class="hero min-h-screen hero-pattern">
-        <div class="hero-content flex-col lg:flex-row-reverse container mx-auto px-4">
-            <!-- Right Side - Image & Stats -->
-            <div class="lg:w-1/2 relative glow-effect slide-in">
-                <img src="/api/placeholder/600/400" alt="Computer Diagnosis" 
-                     class="rounded-lg shadow-2xl max-w-sm mx-auto lg:max-w-full hero-card" />
-                
-                <!-- Floating Stats Cards -->
-                <div class="hero-card absolute -right-4 top-4 p-4 rounded-lg slide-in">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-primary/20 p-3 rounded-full">
-                            <i class="fas fa-microchip text-primary text-xl"></i>
+    <div class="hero-wrapper hero-pattern">
+        <div class="hero min-h-screen">
+            <div class="hero-content flex-col lg:flex-row-reverse container mx-auto px-4 relative">
+                <!-- Right Side - Image & Stats -->
+                <div class="relative bg-gradient-to-r from-blue-600/20 to-violet-600/20 rounded-xl p-4 max-w-md mx-auto slide-up">
+                    <img src="/storage/images/hero.jpeg" alt="Computer Diagnosis"
+                         class="rounded-lg shadow-lg w-full h-auto object-cover" />
+
+                    <!-- Floating Stats Cards -->
+                    <div class="hero-card absolute top-1/2 -right-20 transform -translate-y-1/2 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-primary/20 p-3 rounded-full">
+                                <i class="fas fa-microchip text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm opacity-80">Hardware Fixed</p>
+                                <p class="font-bold text-lg">10,000+</p>
+                            </div>
                         </div>
-                        <div class="text-white">
-                            <p class="text-sm opacity-80">Hardware Fixed</p>
-                            <p class="font-bold text-lg">10,000+</p>
+                    </div>
+
+                    <div class="hero-card absolute bottom-4 -left-20 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-success/20 p-3 rounded-full">
+                                <i class="fas fa-check-circle text-success text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm opacity-80">Success Rate</p>
+                                <p class="font-bold text-lg">80.9%</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="hero-card absolute -left-4 bottom-4 p-4 rounded-lg slide-in">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-success/20 p-3 rounded-full">
-                            <i class="fas fa-check-circle text-success text-xl"></i>
-                        </div>
-                        <div class="text-white">
-                            <p class="text-sm opacity-80">Success Rate</p>
-                            <p class="font-bold text-lg">99.9%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Left Side - Text Content -->
-            <div class="lg:w-1/2 text-center lg:text-left text-white z-10">
-                <div class="slide-in">
+                <!-- Left Side - Text Content -->
+                <div class="lg:w-1/2 text-center lg:text-left text-white z-10 slide-up">
                     <h1 class="text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4">
-                        <span class="typing-title"></span>
+                        <span class="typing-title">Expert PC Hardware</span>
                         <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                            <span class="typing-subtitle"></span>
+                            <span class="typing-subtitle">Diagnosis System</span>
                         </span>
                     </h1>
-                </div>
-                
-                <div class="slide-in">
+                    
                     <p class="py-6 text-lg opacity-90">
                         Get instant, accurate diagnoses for your PC or laptop hardware issues using our advanced expert system. 
                         Powered by sophisticated algorithms and years of technical expertise.
                     </p>
-                </div>
 
-                <div class="flex gap-4 justify-center lg:justify-start slide-in">
-                    <a href="/diagnosa" class="btn btn-primary btn-lg group">
-                        <i class="fas fa-stethoscope mr-2 group-hover:rotate-12 transition-transform"></i>
-                        Start Diagnosis
-                    </a>
-                    <a href="#how-it-works" class="btn btn-ghost btn-lg border-white text-white group">
-                        <i class="fas fa-arrow-down mr-2 group-hover:translate-y-1 transition-transform"></i>
-                        Learn More
-                    </a>
+                    <div class="flex gap-4 justify-center lg:justify-start">
+                        <a href="/diagnosa" class="btn btn-primary btn-lg group">
+                            <i class="fas fa-stethoscope mr-2 group-hover:rotate-12 transition-transform"></i>
+                            Start Diagnosis
+                        </a>
+                        <a href="#how-it-works" class="btn btn-ghost btn-lg border-white text-white group">
+                            <i class="fas fa-arrow-down mr-2 group-hover:translate-y-1 transition-transform"></i>
+                            Learn More
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -295,7 +383,7 @@
     <footer class="footer p-10 bg-neutral text-neutral-content">
         <div>
             <i class="fas fa-microchip text-3xl"></i>
-            <p>TechDiagnose Pro<br/>Providing reliable PC hardware diagnosis since 2024</p>
+            <p>TechMedix<br/>Providing reliable PC hardware diagnosis since 2024</p>
         </div> 
         <div>
             <span class="footer-title">Services</span> 
@@ -312,50 +400,116 @@
             <a class="link link-hover">Terms of Service</a>
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Typed.js for the main title
-            new Typed('.typing-title', {
-                strings: ['Expert PC Hardware'],
-                typeSpeed: 50,
-                showCursor: false,
-                onComplete: (self) => {
-                    // Start subtitle typing after title is complete
-                    new Typed('.typing-subtitle', {
-                        strings: ['Diagnosis System'],
-                        typeSpeed: 50,
-                        showCursor: false
-                    });
-                }
-            });
+            // Initial animations setup
+            const heroWrapper = document.querySelector('.hero-wrapper');
+            const navbar = document.querySelector('.navbar');
+            const slideUpElements = document.querySelectorAll('.slide-up');
+            const heroCards = document.querySelectorAll('.hero-card');
+            let typedTitle, typedSubtitle;
 
-            // Slide-in animations
-            const slideIns = document.querySelectorAll('.slide-in');
-            let delay = 0;
-
-            slideIns.forEach((element) => {
+            // Function to start animations
+            const startAnimations = () => {
+                // Show hero wrapper
                 setTimeout(() => {
-                    element.classList.add('active');
-                }, delay);
-                delay += 200; // Increment delay for each element
+                    heroWrapper.classList.add('visible');
+                }, 100);
+
+                // Animate slide-up elements
+                setTimeout(() => {
+                    slideUpElements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, index * 200);
+                    });
+                }, 500);
+
+                // Animate hero cards
+                setTimeout(() => {
+                    heroCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 300 + 800);
+                    });
+                }, 800);
+
+                // Initialize Typed.js
+                setTimeout(() => {
+                    typedTitle = new Typed('.typing-title', {
+                        strings: ['Expert PC Hardware'],
+                        typeSpeed: 50,
+                        showCursor: false,
+                        onComplete: () => {
+                            typedSubtitle = new Typed('.typing-subtitle', {
+                                strings: ['Diagnosis System'],
+                                typeSpeed: 50,
+                                showCursor: false
+                            });
+                        }
+                    });
+                }, 1200);
+            };
+
+            // Scroll handler for navbar
+            const handleScroll = () => {
+                const scrollPosition = window.scrollY;
+                
+                if (scrollPosition > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+            };
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards and other animated elements
+            document.querySelectorAll('.feature-card, .fade-in').forEach((el) => {
+                observer.observe(el);
             });
 
-            // Parallax effect on scroll
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero-pattern');
-                hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            // Smooth scroll functionality
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
 
-            // Hover effects for buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('mouseover', () => {
-                    btn.style.transform = 'translateY(-2px)';
-                });
-                btn.addEventListener('mouseout', () => {
-                    btn.style.transform = 'translateY(0)';
-                });
+            // Initialize
+            window.addEventListener('scroll', handleScroll);
+            startAnimations();
+
+            // GSAP animations
+            gsap.to('.hero-card', {
+                y: -20,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut",
+                stagger: {
+                    each: 0.5
+                }
             });
         });
     </script>

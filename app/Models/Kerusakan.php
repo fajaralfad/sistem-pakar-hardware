@@ -16,4 +16,10 @@ class Kerusakan extends Model
     {
         return $this->hasMany(Aturan::class);
     }
+
+    public function solusi()
+    {
+        return $this->hasMany(Solusi::class);
+    }
+    
 }

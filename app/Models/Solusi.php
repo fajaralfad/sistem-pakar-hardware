@@ -9,12 +9,14 @@ class Solusi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_solusi', 'langkah_solusi'];
+    protected $fillable = [
+        'nama_solusi',
+        'langkah_solusi',
+        'kerusakan_id', // Foreign key ke kerusakan
+    ];
 
-    // Relasi ke Kerusakan (jika solusi terkait kerusakan)
-    // Tambahkan jika ada kebutuhan, misalnya:
-    // public function kerusakan()
-    // {
-    //     return $this->belongsTo(Kerusakan::class);
-    // }
+    public function kerusakan()
+    {
+        return $this->belongsTo(Kerusakan::class);
+    }
 }
