@@ -19,41 +19,51 @@ class SolusiResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Forms\Form $form): Forms\Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('nama_solusi')
-                    ->label('Nama Solusi')
-                    ->required()
-                    ->maxLength(255),
-                Textarea::make('langkah_solusi')
-                    ->label('Langkah Solusi')
-                    ->required(),
-            ]);
-    }
+{
+    return $form
+        ->schema([
+            TextInput::make('nama_solusi')
+                ->label('Nama Solusi')
+                ->required()
+                ->maxLength(255),
+            Textarea::make('langkah_solusi')
+                ->label('Langkah Solusi')
+                ->required(),
+            Forms\Components\Select::make('kerusakan_id')
+                ->label('Kerusakan Terkait')
+                ->relationship('kerusakan', 'nama_kerusakan') // Relasi ke Kerusakan
+                ->required(),
+        ]);
+}
 
-    public static function table(Tables\Table $table): Tables\Table
-    {
-        return $table
-            ->columns([
-                TextColumn::make('nama_solusi')
-                    ->label('Nama Solusi')
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('langkah_solusi')
-                    ->label('Langkah Solusi')
-                    ->limit(50), // Batasi panjang teks untuk tampilan
-            ])
-            ->filters([
-                // Tambahkan filter jika diperlukan
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
-    }
+
+public static function table(Tables\Table $table): Tables\Table
+{
+    return $table
+        ->columns([
+            TextColumn::make('nama_solusi')
+                ->label('Nama Solusi')
+                ->sortable()
+                ->searchable(),
+            TextColumn::make('langkah_solusi')
+                ->label('Langkah Solusi')
+                ->limit(50),
+            TextColumn::make('kerusakan.nama_kerusakan')
+                ->label('Kerusakan Terkait')
+                ->sortable()
+                ->searchable(),
+        ])
+        ->filters([
+            // Tambahkan filter jika diperlukan
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
+}
+
 
     public static function getRelations(): array
     {
