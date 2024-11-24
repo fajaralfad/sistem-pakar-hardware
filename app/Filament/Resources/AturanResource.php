@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AturanResource\Pages;
 use App\Models\Aturan;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -17,25 +18,52 @@ class AturanResource extends Resource
 {
     protected static ?string $model = Aturan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // Ganti dengan ikon yang lebih sesuai
+    protected static ?string $navigationIcon = 'heroicon-o-document-text'; 
+    
+    // Mengubah label di navigasi
+    protected static ?string $navigationLabel = 'Aturan';
+    
+    // Mengubah label di breadcrumb
+    protected static ?string $modelLabel = 'Aturan';
+    
+    // Mengubah label untuk bentuk plural
+    protected static ?string $pluralModelLabel = 'Aturan';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Select::make('gejala_id')
-                    ->label('Gejala')
-                    ->relationship('gejala', 'nama_gejala') // Relasi ke model Gejala
-                    ->required(),
-                Select::make('kerusakan_id')
-                    ->label('Kerusakan')
-                    ->relationship('kerusakan', 'nama_kerusakan') // Relasi ke model Kerusakan
-                    ->required(),
-                TextInput::make('nilai_kepercayaan')
-                    ->label('Nilai Kepercayaan')
-                    ->numeric() // Pastikan input berupa angka
-                    ->rule('between:0,1') // Validasi angka di antara 0 dan 1
-                    ->required(),
+                Card::make()
+                    ->schema([
+                        Select::make('gejala_id')
+                            ->label('Gejala')
+                            ->relationship('gejala', 'nama_gejala')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->placeholder('Pilih gejala')
+                            ->columnSpan('full'),
+                            
+                        Select::make('kerusakan_id')
+                            ->label('Kerusakan')
+                            ->relationship('kerusakan', 'nama_kerusakan')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->placeholder('Pilih kerusakan')
+                            ->columnSpan('full'),
+                            
+                        TextInput::make('nilai_kepercayaan')
+                            ->label('Nilai Kepercayaan')
+                            ->numeric()
+                            ->rule('between:0,1')
+                            ->required()
+                            ->placeholder('Masukkan nilai antara 0 dan 1')
+                            ->hint('Nilai harus di antara 0 dan 1')
+                            ->columnSpan('full'),
+                    ])
+                    ->columns(1)
             ]);
     }
     
@@ -46,20 +74,30 @@ class AturanResource extends Resource
                 TextColumn::make('gejala.nama_gejala')
                     ->label('Gejala')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
+                    
                 TextColumn::make('kerusakan.nama_kerusakan')
                     ->label('Kerusakan')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
+                    
                 TextColumn::make('nilai_kepercayaan')
                     ->label('Nilai Kepercayaan')
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(fn ($state) => number_format($state, 2))
+                    ->alignment('center'),
             ])
+            ->defaultSort('gejala.nama_gejala', 'asc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
