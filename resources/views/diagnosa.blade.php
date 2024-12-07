@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pakar Diagnosa Hardware</title>
+    <title>TechMedix | PC Hardware Expert System</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.0/dist/full.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f6f9fc 0%, #ecf0f5 100%);
+            overflow-x: hidden;
         }
-        
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -54,17 +56,165 @@
             background: linear-gradient(45deg, #3b82f6, #4f46e5);
             transform: translateY(-2px);
         }
+
+        /* Checkbox Styling */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background: linear-gradient(to right, #4f46e5, #3b82f6);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            transition: all 0.5s ease;
+            background: transparent;
+        }
+
+        .navbar-scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
+<body>
 
-<body class="min-h-screen py-12 px-4">
-    <!-- Background Decoration -->
-    <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 transform rotate-12"></div>
-        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]"></div>
+<!-- Navbar -->
+<div class="navbar bg-base-100 fixed top-0 z-50 shadow-lg backdrop-blur-lg bg-opacity-90">
+    <!-- Navbar Start -->
+    <div class="navbar-start">
+        <!-- Mobile Menu -->
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost lg:hidden hover:bg-base-200 transition-all duration-200">
+                <i class="fas fa-bars text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"></i>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-lg w-52 gap-1">
+                <li><a href="#features" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Features</a></li>
+                <li><a href="/diagnosa" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Diagnosis</a></li>
+                <li><a href="#how-it-works" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">How it Works</a></li>
+                <li><a href="#faq" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">FAQ</a></li>
+            </ul>
+        </div>
+        <!-- Logo -->
+        <a href="/" class="btn btn-ghost normal-case text-xl font-bold hover:bg-base-200 transition-all duration-200">
+            <i class="fas fa-microchip text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mr-2"></i>
+            <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">TechMedix</span>
+        </a>
     </div>
 
-    <div class="container mx-auto max-w-4xl">
+    <!-- Desktop Menu -->
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-2 gap-2">
+            <li>
+                <a href="#features" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Features
+                </a>
+            </li>
+            <li>
+                <a href="/diagnosa" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Diagnosis
+                </a>
+            </li>
+            <li>
+                <a href="#how-it-works" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    How it Works
+                </a>
+            </li>
+            <li>
+                <a href="#faq" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    FAQ
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Admin Access -->
+    <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle p-0 hover:bg-base-200 transition-all duration-200">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-base-300 hover:border-primary/30 transition-all duration-300">
+                    <i class="fas fa-user-shield bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent text-lg"></i>
+                </div>
+            </label>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-lg w-60 gap-1">
+                <li class="menu-title px-4 py-2">
+                    <span class="text-sm font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent uppercase tracking-wider">Admin Portal</span>
+                </li>
+                <div class="divider my-0"></div>
+                <li>
+                    <a href="/admin/login" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-sign-in-alt text-base"></i>
+                        <span>Sign In to Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/help" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-question-circle text-base"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/contact" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
+                        <i class="fas fa-headset text-base"></i>
+                        <span>Contact Admin</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container mx-auto max-w-4xl mt-24">
         <!-- Main Card -->
         <div class="glass-effect rounded-3xl custom-shadow p-8 mb-8 animate-float">
             <!-- Header -->
@@ -86,25 +236,20 @@
                     <label class="block mb-4">
                         <span class="text-lg font-semibold text-gray-700 mb-2 block">Pilih Gejala yang Dialami</span>
                         <span class="text-sm text-gray-500 block mb-4">
-                            Silakan pilih satu atau lebih gejala yang Anda alami pada perangkat keras
+                            Centang satu atau lebih gejala yang Anda alami pada perangkat keras
                         </span>
                     </label>
-                    <select id="gejala" name="gejala[]" multiple 
-                            class="w-full py-3 px-4 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 min-h-[200px]">
+                    
+                    <!-- Dynamic Checkbox Symptoms -->
+                    <div id="symptomsList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($gejalas as $gejala)
-                        <option value="{{ $gejala->id }}" class="py-2 px-4 hover:bg-blue-50">
+                        <label class="checkbox-container text-gray-700">
                             {{ $gejala->nama_gejala }}
-                        </option>
+                            <input type="checkbox" name="gejala[]" value="{{ $gejala->id }}">
+                            <span class="checkmark"></span>
+                        </label>
                         @endforeach
-                    </select>
-                    <p class="mt-3 text-sm text-gray-500 flex items-center">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                        </svg>
-                        Tahan <kbd class="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">Ctrl</kbd> atau 
-                        <kbd class="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">⌘</kbd> 
-                        untuk memilih multiple gejala
-                    </p>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-gradient w-full py-4 rounded-xl text-white font-semibold text-lg custom-shadow flex items-center justify-center gap-2">
@@ -154,7 +299,7 @@
                 Menganalisa...
             `;
 
-            const gejala = Array.from(document.getElementById('gejala').selectedOptions).map(option => option.value);
+            const gejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
 
             axios.post('/diagnosa', { gejala })
                 .then(response => {
