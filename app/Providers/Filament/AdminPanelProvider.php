@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers\Filament;
 
 use Filament\Http\Middleware\Authenticate;
@@ -17,6 +16,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('TechMedix') // Added this line to change the navbar brand name
+            ->brandName('TechMedix')
             ->colors([
                 'primary' => Color::Blue,
                 'accent' => Color::Gray,
@@ -54,6 +54,14 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            // Tambahkan item navigasi custom ke External Links
+            ->navigationItems([
+                NavigationItem::make('Landing page')
+                    ->url('/')
+                    ->icon('heroicon-o-user-group') // Ganti ikon di sini
+                    ->group('Halaman pengguna')
             ]);
+            
     }
 }
