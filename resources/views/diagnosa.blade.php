@@ -316,7 +316,7 @@
         </div>
         
         <div class="text-center text-xs text-gray-500 mt-6 border-t border-gray-200 pt-4">
-            <p>Sistem Pakar Diagnosa Hardware | Developed by TechMedix Team</p>
+            <p>Sistem Pakar Diagnosa Hardware Pada Laptop| Developed by TechMedix Team</p>
         </div>
     </div>
 </footer>
