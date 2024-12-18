@@ -330,30 +330,42 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
 
             // Create single list item for the highest CF diagnosis
             const li = document.createElement('div');
-            li.className = 'bg-white rounded-xl p-6 shadow-lg mb-4';
+            li.className = 'bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 shadow-2xl border border-blue-100 hover:shadow-xl transition-all duration-300';
 
             const solusiList = highestCFDiagnosis.solusi.map(solusi => `
-                <li class="bg-gray-100 p-3 rounded-lg">
-                    <strong>${solusi.nama_solusi}</strong>
-                    <p>${solusi.langkah_solusi}</p>
+                <li class="bg-white border border-blue-100 rounded-lg p-4 mb-3 last:mb-0 hover:shadow-md transition-all duration-200">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-1">${solusi.nama_solusi}</h4>
+                            <p class="text-gray-600 text-sm">${solusi.langkah_solusi}</p>
+                        </div>
+                    </div>
                 </li>
             `).join('');
 
             li.innerHTML = `
-                <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span class="font-semibold text-blue-600">1</span>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="font-semibold text-gray-800 text-xl mb-2">${highestCFDiagnosis.kerusakan}</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <div class="text-sm font-medium text-gray-500">Certainty Factor:</div>
-                            <div class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
-                                ${displayedCF.toFixed(1)}%
+                <div class="flex flex-col space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">${highestCFDiagnosis.kerusakan}</h3>
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="text-sm font-medium text-gray-600">Certainty Factor:</div>
+                                <div class="px-3 py-1 rounded-full ${displayedCF > 70 ? 'bg-red-100 text-red-600' : displayedCF > 40 ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'} text-sm font-semibold">
+                                    ${displayedCF.toFixed(1)}%
+                                </div>
                             </div>
+                            <p class="text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                ${highestCFDiagnosis.deskripsi}
+                            </p>
                         </div>
-                        <p class="text-gray-700 leading-relaxed">${highestCFDiagnosis.deskripsi}</p>
-                        <ul class="mt-4">${solusiList}</ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Solusi Penanganan:</h4>
+                        <ul class="space-y-2">${solusiList}</ul>
                     </div>
                 </div>
             `;
@@ -365,7 +377,13 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Terjadi kesalahan dalam proses diagnosa. Silakan coba lagi.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Terjadi kesalahan dalam proses diagnosa. Silakan coba lagi.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Coba Lagi'
+            });
         })
         .finally(() => {
             submitBtn.disabled = false;
