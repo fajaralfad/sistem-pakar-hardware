@@ -51,7 +51,7 @@ class DiagnosaController extends Controller
 
     // Menampilkan halaman Diagnosa dengan data gejala
     public function index()
-    {
+    { 
         $gejalas = Gejala::all();
         return view('diagnosa', compact('gejalas'));
     }

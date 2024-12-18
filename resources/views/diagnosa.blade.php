@@ -280,7 +280,6 @@
                     </svg>
                     Tampilkan Solusi
                 </button>
-
                 <!-- Hasil Solusi -->
                 <div id="hasilSolusi" class="mt-12 hidden">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
