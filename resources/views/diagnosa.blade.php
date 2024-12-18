@@ -296,69 +296,72 @@
     </div>
 </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-    document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-            <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Menganalisa...
-        `;
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-        const gejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Menganalisa...
+    `;
 
-        axios.post('/diagnosa', { gejala })
+    const gejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
+
+    axios.post('/diagnosa', { gejala })
         .then(response => {
             const hasilDiagnosa = response.data;
             const list = document.getElementById('diagnosaList');
             list.innerHTML = '';
 
-            hasilDiagnosa.forEach((item, index) => {
-                const li = document.createElement('div');
-                li.className = 'bg-white rounded-xl p-6 shadow-lg mb-4';
+            // Find the diagnosis with the highest certainty factor and cap it at 100%
+            const highestCFDiagnosis = hasilDiagnosa.reduce((highest, current) => 
+                (current.cf > highest.cf) ? current : highest
+            );
 
-                const solusiList = `
-                    <div class="mb-4">
-                        <p class="text-gray-700 font-semibold">Solusi untuk <span class="text-blue-600">${item.kerusakan}</span></p>
+            // Calculate displayed CF (cap at 100%)
+            const displayedCF = Math.min(highestCFDiagnosis.cf * 100, 100);
+
+            // Create single list item for the highest CF diagnosis
+            const li = document.createElement('div');
+            li.className = 'bg-white rounded-xl p-6 shadow-lg mb-4';
+
+            const solusiList = highestCFDiagnosis.solusi.map(solusi => `
+                <li class="bg-gray-100 p-3 rounded-lg">
+                    <strong>${solusi.nama_solusi}</strong>
+                    <p>${solusi.langkah_solusi}</p>
+                </li>
+            `).join('');
+
+            li.innerHTML = `
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="font-semibold text-blue-600">1</span>
                     </div>
-                    ${item.solusi.map(solusi => `
-                        <li class="bg-gray-100 p-3 rounded-lg">
-                            <strong>${solusi.nama_solusi}</strong>
-                            <p>${solusi.langkah_solusi}</p>
-                        </li>
-                    `).join('')}
-                `;
-
-                li.innerHTML = `
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="font-semibold text-blue-600">${index + 1}</span>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-gray-800 text-xl mb-2">${item.kerusakan}</h3>
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="text-sm font-medium text-gray-500">Certainty Factor:</div>
-                                <div class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
-                                    ${(item.cf * 100).toFixed(1)}%
-                                </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-gray-800 text-xl mb-2">${highestCFDiagnosis.kerusakan}</h3>
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="text-sm font-medium text-gray-500">Certainty Factor:</div>
+                            <div class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
+                                ${displayedCF.toFixed(1)}%
                             </div>
-                            <p class="text-gray-700 leading-relaxed">${item.deskripsi}</p>
-                            <ul class="mt-4">${solusiList}</ul>
                         </div>
+                        <p class="text-gray-700 leading-relaxed">${highestCFDiagnosis.deskripsi}</p>
+                        <ul class="mt-4">${solusiList}</ul>
                     </div>
-                `;
-                list.appendChild(li);
-            });
+                </div>
+            `;
+            list.appendChild(li);
 
-            document.getElementById('hasilDiagnosa').classList.remove('hidden');
-            document.getElementById('hasilDiagnosa').scrollIntoView({ behavior: 'smooth' });
+            const hasilDiagnosaSection = document.getElementById('hasilDiagnosa');
+            hasilDiagnosaSection.classList.remove('hidden');
+            hasilDiagnosaSection.scrollIntoView({ behavior: 'smooth' });
         })
         .catch(error => {
             console.error('Error:', error);
@@ -368,12 +371,12 @@
             submitBtn.disabled = false;
             submitBtn.innerHTML = `
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
                 Mulai Diagnosa
             `;
         });
-    });
+});
 </script>
 </body>
 </html>
