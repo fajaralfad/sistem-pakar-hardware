@@ -273,26 +273,6 @@
                         <ul id="diagnosaList" class="space-y-4"></ul>
                     </div>
                 </div>
-                <!-- Tombol Tampilkan Solusi -->
-                <button type="button" id="tampilkanSolusi" class="btn-gradient w-full py-4 rounded-xl text-white font-semibold text-lg custom-shadow flex items-center justify-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Tampilkan Solusi
-                </button>
-
-                <!-- Hasil Solusi -->
-                <div id="hasilSolusi" class="mt-12 hidden">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Daftar Solusi
-                    </h2>
-                    <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
-                        <ul id="solusiList" class="space-y-4"></ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -360,74 +340,64 @@
         const gejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
 
         axios.post('/diagnosa', { gejala })
-            .then(response => {
-                const hasilDiagnosa = response.data;
-                const list = document.getElementById('diagnosaList');
-                list.innerHTML = '';
+        .then(response => {
+            const hasilDiagnosa = response.data;
+            const list = document.getElementById('diagnosaList');
+            list.innerHTML = '';
 
-                hasilDiagnosa.forEach((item, index) => {
-                    const li = document.createElement('div');
-                    li.className = 'bg-white rounded-xl p-6 shadow-lg mb-4';
+            hasilDiagnosa.forEach((item, index) => {
+                const li = document.createElement('div');
+                li.className = 'bg-white rounded-xl p-6 shadow-lg mb-4';
 
-                    li.innerHTML = `
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="font-semibold text-blue-600">${index + 1}</span>
-                            </div>
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-gray-800 text-xl mb-2">${item.kerusakan}</h3>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <div class="text-sm font-medium text-gray-500">Certainty Factor:</div>
-                                    <div class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
-                                        ${(item.cf * 100).toFixed(1)}%
-                                    </div>
-                                </div>
-                                <p class="text-gray-700 leading-relaxed">${item.deskripsi}</p>
-                            </div>
-                        </div>
-                    `;
-                    list.appendChild(li);
-                });
-
-                // Show results
-                document.getElementById('hasilDiagnosa').classList.remove('hidden');
-                document.getElementById('hasilDiagnosa').scrollIntoView({ behavior: 'smooth' });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan dalam proses diagnosa. Silakan coba lagi.');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                    </svg>
-                    Mulai Diagnosa
+                const solusiList = `
+                    <div class="mb-4">
+                        <p class="text-gray-700 font-semibold">Solusi untuk <span class="text-blue-600">${item.kerusakan}</span></p>
+                    </div>
+                    ${item.solusi.map(solusi => `
+                        <li class="bg-gray-100 p-3 rounded-lg">
+                            <strong>${solusi.nama_solusi}</strong>
+                            <p>${solusi.langkah_solusi}</p>
+                        </li>
+                    `).join('')}
                 `;
-            });
-    });
 
-    document.getElementById('tampilkanSolusi').addEventListener('click', function () {
-        fetch('/solusi') // Route untuk mengambil data solusi
-            .then(response => response.json())
-            .then(data => {
-                const solusiList = document.getElementById('solusiList');
-                solusiList.innerHTML = ''; // Kosongkan data sebelumnya
-                
-                data.forEach(solusi => {
-                    const li = document.createElement('li');
-                    li.className = 'bg-white p-4 rounded-lg shadow text-gray-800';
-                    li.innerHTML = `
-                        <strong>${solusi.nama_solusi}</strong>
-                        <p>${solusi.langkah_solusi}</p>
-                    `;
-                    solusiList.appendChild(li);
-                });
-                
-                document.getElementById('hasilSolusi').classList.remove('hidden');
-            })
-            .catch(error => console.error('Error:', error));
+                li.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span class="font-semibold text-blue-600">${index + 1}</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-800 text-xl mb-2">${item.kerusakan}</h3>
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="text-sm font-medium text-gray-500">Certainty Factor:</div>
+                                <div class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold">
+                                    ${(item.cf * 100).toFixed(1)}%
+                                </div>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">${item.deskripsi}</p>
+                            <ul class="mt-4">${solusiList}</ul>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+
+            document.getElementById('hasilDiagnosa').classList.remove('hidden');
+            document.getElementById('hasilDiagnosa').scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan dalam proses diagnosa. Silakan coba lagi.');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                Mulai Diagnosa
+            `;
+        });
     });
 </script>
 </body>

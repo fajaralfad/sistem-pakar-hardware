@@ -32,14 +32,18 @@ class DiagnosaController extends Controller
             $hasilDiagnosa[$kerusakanId] += $cfE * $nilaiKepercayaan;
         }
 
-        // Ambil detail kerusakan
+        // Ambil detail kerusakan dan solusi terkait
         $kerusakanDetail = [];
         foreach ($hasilDiagnosa as $kerusakanId => $cf) {
-            $kerusakan = Kerusakan::find($kerusakanId);
+            $kerusakan = Kerusakan::with('solusi')->find($kerusakanId);
             $kerusakanDetail[] = [
                 'kerusakan' => $kerusakan->nama_kerusakan,
                 'deskripsi' => $kerusakan->deskripsi,
                 'cf' => $cf,
+                'solusi' => $kerusakan->solusi->map(fn($solusi) => [
+                    'nama_solusi' => $solusi->nama_solusi,
+                    'langkah_solusi' => $solusi->langkah_solusi,
+                ]),
             ];
         }
 
