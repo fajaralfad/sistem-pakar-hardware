@@ -140,11 +140,8 @@
                 <i class="fas fa-bars text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"></i>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-lg w-52 gap-1">
-                <li><a href="#features" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Features</a></li>
+                <li><a href="/" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Home</a></li>
                 <li><a href="/diagnosa" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Diagnosis</a></li>
-                <li><a href="#how-it-works" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">How it Works</a></li>
-                <li><a href="#faq" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">FAQ</a></li>
-            </ul>
         </div>
         <!-- Logo -->
         <a href="/" class="btn btn-ghost normal-case text-xl font-bold hover:bg-base-200 transition-all duration-200">
@@ -157,23 +154,13 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-2 gap-2">
             <li>
-                <a href="#features" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    Features
+                <a href="/" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Home
                 </a>
             </li>
             <li>
                 <a href="/diagnosa" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
                     Diagnosis
-                </a>
-            </li>
-            <li>
-                <a href="#how-it-works" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    How it Works
-                </a>
-            </li>
-            <li>
-                <a href="#faq" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    FAQ
                 </a>
             </li>
         </ul>
@@ -196,18 +183,6 @@
                     <a href="/admin/login" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
                         <i class="fas fa-sign-in-alt text-base"></i>
                         <span>Sign In to Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/help" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
-                        <i class="fas fa-question-circle text-base"></i>
-                        <span>Help & Support</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/contact" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
-                        <i class="fas fa-headset text-base"></i>
-                        <span>Contact Admin</span>
                     </a>
                 </li>
             </ul>

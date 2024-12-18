@@ -137,10 +137,10 @@
                 <i class="fas fa-bars text-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"></i>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-lg w-52 gap-1">
-                <li><a href="#features" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Features</a></li>
+                <li><a href="/" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Home</a></li>
                 <li><a href="/diagnosa" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Diagnosis</a></li>
-                <li><a href="#how-it-works" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">How it Works</a></li>
-                <li><a href="#faq" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">FAQ</a></li>
+                <li><a href="#how-it-works" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Cara Kerja Sistem</a></li>
+                <li><a href="#developer" class="hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-colors duration-200">Developer</a></li>
             </ul>
         </div>
         <!-- Logo -->
@@ -154,8 +154,8 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-2 gap-2">
             <li>
-                <a href="#features" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    Features
+                <a href="/" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                    Home
                 </a>
             </li>
             <li>
@@ -165,12 +165,12 @@
             </li>
             <li>
                 <a href="#how-it-works" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    How it Works
+                   Cara Kerja Sistem
                 </a>
             </li>
             <li>
-                <a href="#faq" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
-                    FAQ
+                <a href="#developer" class="px-4 font-medium hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-300 rounded-lg">
+                   Developer
                 </a>
             </li>
         </ul>
@@ -192,19 +192,7 @@
                 <li>
                     <a href="/admin/login" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
                         <i class="fas fa-sign-in-alt text-base"></i>
-                        <span>Sign In to Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/help" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
-                        <i class="fas fa-question-circle text-base"></i>
-                        <span>Help & Support</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/contact" class="flex items-center gap-3 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:bg-clip-text hover:text-transparent transition-all duration-200">
-                        <i class="fas fa-headset text-base"></i>
-                        <span>Contact Admin</span>
+                        <span>Login Ke Dashboard</span>
                     </a>
                 </li>
             </ul>
@@ -228,8 +216,8 @@
                                 <i class="fas fa-microchip text-primary text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-sm opacity-80">Hardware Fixed</p>
-                                <p class="font-bold text-lg">10,000+</p>
+                                <p class="text-sm opacity-80">Hardware yang sudah diperbaiki</p>
+                                <p class="font-bold text-lg">1.000+</p>
                             </div>
                         </div>
                     </div>
@@ -241,7 +229,7 @@
                             </div>
                             <div>
                                 <p class="text-sm opacity-80">Success Rate</p>
-                                <p class="font-bold text-lg">80.9%</p>
+                                <p class="font-bold text-lg">90.9%</p>
                             </div>
                         </div>
                     </div>
@@ -249,26 +237,28 @@
 
                 <!-- Left Side - Text Content -->
                 <div class="lg:w-1/2 text-center lg:text-left text-white z-10 slide-up">
-                    <h1 class="text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4">
-                        <span class="typing-title">Expert PC Hardware</span>
+                    <h1 class="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4">
+                        <span class="typing-title">Sistem Pakar Diagnosis Kerusakan</span>
                         <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                            <span class="typing-subtitle">Diagnosis System</span>
+                            <span class="typing-subtitle">Hardware pada laptop </span>
                         </span>
                     </h1>
                     
                     <p class="py-6 text-lg opacity-90">
-                        Get instant, accurate diagnoses for your PC or laptop hardware issues using our advanced expert system. 
-                        Powered by sophisticated algorithms and years of technical expertise.
+                        Dapatkan diagnosis instan dan akurat untuk setiap masalah yang terjadi pada perangkat keras PC atau laptop Anda 
+                        dengan menggunakan sistem pakar kami yang dirancang khusus untuk memberikan solusi terbaik.
+                        Dengan teknologi ini, Anda dapat menghemat waktu dan tenaga 
+                        dalam mengidentifikasi serta memperbaiki kerusakan perangkat keras dengan hasil yang terpercaya.
                     </p>
 
                     <div class="flex gap-4 justify-center lg:justify-start">
                         <a href="/diagnosa" class="btn btn-primary btn-lg group">
                             <i class="fas fa-stethoscope mr-2 group-hover:rotate-12 transition-transform"></i>
-                            Start Diagnosis
+                            Mulai Diagnosis
                         </a>
                         <a href="#how-it-works" class="btn btn-ghost btn-lg border-white text-white group">
                             <i class="fas fa-arrow-down mr-2 group-hover:translate-y-1 transition-transform"></i>
-                            Learn More
+                           Pelajari Lagi
                         </a>
                     </div>
                 </div>
@@ -276,18 +266,18 @@
         </div>
     </div>
 
-    <!-- Features Section -->
-    <div class="py-20 bg-base-100">
+    <!-- Bagian Fitur -->
+    <div id="sistem" class="py-20 bg-base-100">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16">Why Choose Our System?</h2>
+            <h2 class="text-4xl font-bold text-center mb-16">Kenapa Memilih Sistem Kami?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
                     <div class="card-body items-center text-center">
                         <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                             <i class="fas fa-brain text-3xl text-primary"></i>
                         </div>
-                        <h3 class="card-title">Smart Analysis</h3>
-                        <p>Advanced expert system algorithms for accurate hardware problem identification</p>
+                        <h3 class="card-title">Analisis Cerdas</h3>
+                        <p>Algoritma sistem pakar canggih untuk identifikasi masalah perangkat keras secara akurat</p>
                     </div>
                 </div>
                 <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
@@ -295,8 +285,8 @@
                         <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                             <i class="fas fa-bolt text-3xl text-primary"></i>
                         </div>
-                        <h3 class="card-title">Quick Results</h3>
-                        <p>Get instant diagnosis and solutions for your hardware issues</p>
+                        <h3 class="card-title">Hasil Cepat</h3>
+                        <p>Dapatkan diagnosis dan solusi instan untuk masalah perangkat keras Anda</p>
                     </div>
                 </div>
                 <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
@@ -304,18 +294,18 @@
                         <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                             <i class="fas fa-tools text-3xl text-primary"></i>
                         </div>
-                        <h3 class="card-title">Detailed Solutions</h3>
-                        <p>Step-by-step repair guides and recommendations</p>
+                        <h3 class="card-title">Solusi Mendetail</h3>
+                        <p>Panduan perbaikan langkah demi langkah dan rekomendasi terbaik</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- How It Works Section -->
+    <!-- Bagian Cara Kerja -->
     <div id="how-it-works" class="py-20 bg-base-200">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16">How It Works</h2>
+            <h2 class="text-4xl font-bold text-center mb-16">Bagaimana Cara Kerjanya</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="text-center">
                     <div class="stats shadow">
@@ -323,8 +313,8 @@
                             <div class="stat-figure text-primary">
                                 <i class="fas fa-laptop-medical text-3xl"></i>
                             </div>
-                            <div class="stat-title">Step 1</div>
-                            <div class="stat-value text-lg">Describe Symptoms</div>
+                            <div class="stat-title">Langkah 1</div>
+                            <div class="stat-value text-lg">Deskripsikan Gejala</div>
                         </div>
                     </div>
                 </div>
@@ -334,8 +324,8 @@
                             <div class="stat-figure text-primary">
                                 <i class="fas fa-search-plus text-3xl"></i>
                             </div>
-                            <div class="stat-title">Step 2</div>
-                            <div class="stat-value text-lg">Analysis</div>
+                            <div class="stat-title">Langkah 2</div>
+                            <div class="stat-value text-lg">Analisis</div>
                         </div>
                     </div>
                 </div>
@@ -345,7 +335,7 @@
                             <div class="stat-figure text-primary">
                                 <i class="fas fa-clipboard-check text-3xl"></i>
                             </div>
-                            <div class="stat-title">Step 3</div>
+                            <div class="stat-title">Langkah 3</div>
                             <div class="stat-value text-lg">Diagnosis</div>
                         </div>
                     </div>
@@ -356,8 +346,8 @@
                             <div class="stat-figure text-primary">
                                 <i class="fas fa-wrench text-3xl"></i>
                             </div>
-                            <div class="stat-title">Step 4</div>
-                            <div class="stat-value text-lg">Solution</div>
+                            <div class="stat-title">Langkah 4</div>
+                            <div class="stat-value text-lg">Solusi</div>
                         </div>
                     </div>
                 </div>
@@ -365,16 +355,109 @@
         </div>
     </div>
 
-    <!-- Start Diagnosis Section -->
-    <div class="hero min-h-[60vh] bg-base-100">
-        <div class="hero-content text-center">
-            <div class="max-w-xl">
-                <h2 class="text-4xl font-bold mb-8">Ready to Diagnose Your PC?</h2>
-                <p class="mb-8">Get started with our advanced diagnostic system and find solutions to your hardware problems in minutes.</p>
-                <a href="/diagnosa" class="btn btn-primary btn-lg">
-                    Start Free Diagnosis
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
+    <!-- Developer Showcase Section -->
+    <div id="developer" class="py-16 bg-base-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-center mb-5">Para Pengembang Sistem</h2>
+                <p class="text-xl text-base-content/70 max-w-2xl mx-auto">
+                    Kami adalah tim pengembang yang berdedikasi di balik pengembangan Sistem Diagnosis Kerusakan Hardware Laptop ini. 
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-8 justify-center">
+                <!-- Developer 1 -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <figure class="px-10 pt-10">
+                        <div class="avatar">
+                            <div class="w-48 h-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-30">
+                                <img src="storage/images/dev-1.jpg" alt="Developer 1" class="object-cover w-full h-full rounded-full"/>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h3 class="card-title text-xl font-bold text-primary">M Fajar Alfad</h3>
+                        <p class="text-base-content/70">Frontend Developer</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="https://www.instagram.com/fajaralfad/" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-instagram text-xl text-primary"></i>
+                            </a>
+                            <a href="https://github.com/fajaralfad" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-github text-xl text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Developer 2 -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <figure class="px-10 pt-10">
+                    <div class="avatar">
+                            <div class="w-48 h-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-30">
+                                <img src="storage/images/dev-2.jpg" alt="Developer 1" class="object-cover w-full h-full rounded-full"/>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h3 class="card-title text-xl font-bold text-primary">Arip Saputra</h3>
+                        <p class="text-base-content/70">Frontend Developer</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="https://www.instagram.com/aripsaputra_22?igsh=MXE4anlyZG81N2V1MQ==" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-instagram text-xl text-primary"></i>
+                            </a>
+                            <a href="https://github.com/4rip22?fbclid=PAZXh0bgNhZW0CMTEAAaZWMoWehqFQqoBa3mR4Cs-kIgeyju1XwOv-FG9gskxRqULvIEK4nsYKOg8_aem_dLSjZoY62Vu5Iztt3aQ6DQ" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-github text-xl text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer 3 -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <figure class="px-10 pt-10">
+                    <div class="avatar">
+                            <div class="w-48 h-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-30">
+                                <img src="storage/images/dev-3.jpg" alt="Developer 1" class="object-cover w-full h-full rounded-full"/>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h3 class="card-title text-xl font-bold text-primary">M ibnu Muhtar</h3>
+                        <p class="text-base-content/70">Backend Developer</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="https://www.instagram.com/ibnumhtr_/" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-instagram text-xl text-primary"></i>
+                            </a>
+                            <a href="https://github.com/IbnuMuhtar" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-github text-xl text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer 4 -->
+                <div class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <figure class="px-10 pt-10">
+                    <div class="avatar">
+                            <div class="w-48 h-48 rounded-full ring ring-primary ring-offset-base-100 ring-offset-30">
+                                <img src="storage/images/dev-4.jpg" alt="Developer 1" class="object-cover w-full h-full rounded-full"/>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body items-center text-center">
+                        <h3 class="card-title text-xl font-bold text-primary">Nuurwahid Muslim</h3>
+                        <p class="text-base-content/70">Backend Developer</p>
+                        <div class="flex justify-center space-x-4 mt-4">
+                            <a href="https://www.instagram.com/muss28_/" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-instagram text-xl text-primary"></i>
+                            </a>
+                            <a href="https://github.com/nurwahidmuslim" class="btn btn-circle btn-ghost hover:bg-primary/10">
+                                <i class="fab fa-github text-xl text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -460,12 +543,12 @@
                 // Initialize Typed.js
                 setTimeout(() => {
                     typedTitle = new Typed('.typing-title', {
-                        strings: ['Expert PC Hardware'],
+                        strings: ['Sistem Pakar Diagnosis Kerusakan'],
                         typeSpeed: 50,
                         showCursor: false,
                         onComplete: () => {
                             typedSubtitle = new Typed('.typing-subtitle', {
-                                strings: ['Diagnosis System'],
+                                strings: ['Hardware Pada Laptop'],
                                 typeSpeed: 50,
                                 showCursor: false
                             });

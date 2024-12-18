@@ -56,10 +56,15 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             // Tambahkan item navigasi custom ke External Links
+            // Tambahkan item navigasi custom ke External Links
             ->navigationItems([
                 NavigationItem::make('Landing page')
                     ->url('/')
                     ->icon('heroicon-o-user-group') // Ganti ikon di sini
+                    ->group('Halaman pengguna'),
+                NavigationItem::make('Diagnosis')
+                    ->url('/diagnosa') // URL halaman /diagnosa
+                    ->icon('heroicon-o-cube') // Ganti dengan ikon yang sesuai
                     ->group('Halaman pengguna')
             ]);
             
