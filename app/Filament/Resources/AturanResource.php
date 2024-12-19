@@ -12,22 +12,13 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Resources\Table;
 
 class AturanResource extends Resource
 {
     protected static ?string $model = Aturan::class;
-
-    // Ganti dengan ikon yang lebih sesuai
-    protected static ?string $navigationIcon = 'heroicon-o-document-text'; 
-    
-    // Mengubah label di navigasi
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = 'Aturan';
-    
-    // Mengubah label di breadcrumb
     protected static ?string $modelLabel = 'Aturan';
-    
-    // Mengubah label untuk bentuk plural
     protected static ?string $pluralModelLabel = 'Aturan';
 
     public static function form(Forms\Form $form): Forms\Form
@@ -71,14 +62,14 @@ class AturanResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('gejala.nama_gejala')
-                    ->label('Gejala')
+                TextColumn::make('kerusakan.nama_kerusakan')
+                    ->label('Kerusakan')
                     ->sortable()
                     ->searchable()
                     ->wrap(),
-                    
-                TextColumn::make('kerusakan.nama_kerusakan')
-                    ->label('Kerusakan')
+
+                TextColumn::make('gejala.nama_gejala')
+                    ->label('Gejala')
                     ->sortable()
                     ->searchable()
                     ->wrap(),
@@ -89,7 +80,7 @@ class AturanResource extends Resource
                     ->formatStateUsing(fn ($state) => number_format($state, 2))
                     ->alignment('center'),
             ])
-            ->defaultSort('gejala.nama_gejala', 'asc')
+            ->defaultSort('kerusakan.nama_kerusakan', 'asc')
             ->filters([
                 //
             ])
