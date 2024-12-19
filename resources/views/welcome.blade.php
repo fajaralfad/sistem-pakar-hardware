@@ -294,8 +294,8 @@
                         <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                             <i class="fas fa-tools text-3xl text-primary"></i>
                         </div>
-                        <h3 class="card-title">Solusi Mendetail</h3>
-                        <p>Panduan perbaikan langkah demi langkah dan rekomendasi terbaik</p>
+                        <h3 class="card-title">Solusi Kerusakan</h3>
+                        <p>Panduan perbaikan pada kerusakan dan rekomendasi terbaik</p>
                     </div>
                 </div>
             </div>
@@ -314,7 +314,7 @@
                                 <i class="fas fa-laptop-medical text-3xl"></i>
                             </div>
                             <div class="stat-title">Langkah 1</div>
-                            <div class="stat-value text-lg">Deskripsikan Gejala</div>
+                            <div class="stat-value text-lg">Checkbox Gejala</div>
                         </div>
                     </div>
                 </div>
@@ -446,7 +446,7 @@
                         </div>
                     </figure>
                     <div class="card-body items-center text-center">
-                        <h3 class="card-title text-xl font-bold text-primary">Nuurwahid Muslim</h3>
+                        <h3 class="card-title text-xl font-bold text-primary">Nurwahid Muslim</h3>
                         <p class="text-base-content/70">Backend Developer</p>
                         <div class="flex justify-center space-x-4 mt-4">
                             <a href="https://www.instagram.com/muss28_/" class="btn btn-circle btn-ghost hover:bg-primary/10">
