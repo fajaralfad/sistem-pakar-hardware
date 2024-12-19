@@ -312,64 +312,98 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
         Menganalisa...
     `;
 
-    const gejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
+    const selectedGejala = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked')).map(option => option.value);
 
-    axios.post('/diagnosa', { gejala })
+    axios.post('/diagnosa', { gejala: selectedGejala })
         .then(response => {
             const hasilDiagnosa = response.data;
             const list = document.getElementById('diagnosaList');
             list.innerHTML = '';
 
-            // Find the diagnosis with the highest certainty factor and cap it at 100%
-            const highestCFDiagnosis = hasilDiagnosa.reduce((highest, current) => 
-                (current.cf > highest.cf) ? current : highest
-            );
+            // Determine which diagnoses to show based on number of symptoms
+            let diagnosesToShow = [];
+            
+            if (selectedGejala.length === 1) {
+                // For single symptom, show all related diagnoses
+                diagnosesToShow = hasilDiagnosa;
+            } else {
+                // For multiple symptoms, show only the highest CF
+                const highestCF = Math.max(...hasilDiagnosa.map(d => d.cf));
+                diagnosesToShow = hasilDiagnosa.filter(d => d.cf === highestCF);
+            }
 
-            // Calculate displayed CF (cap at 100%)
-            const displayedCF = Math.min(highestCFDiagnosis.cf * 100, 100);
-
-            // Create single list item for the highest CF diagnosis
-            const li = document.createElement('div');
-            li.className = 'bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 shadow-2xl border border-blue-100 hover:shadow-xl transition-all duration-300';
-
-            const solusiList = highestCFDiagnosis.solusi.map(solusi => `
-                <li class="bg-white border border-blue-100 rounded-lg p-4 mb-3 last:mb-0 hover:shadow-md transition-all duration-200">
-                    <div class="flex items-start space-x-3">
-                        <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            // Add header for single symptom case with multiple diagnoses
+            if (selectedGejala.length === 1 && diagnosesToShow.length > 1) {
+                const header = document.createElement('div');
+                header.className = 'mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg';
+                header.innerHTML = `
+                    <div class="flex items-center gap-2 text-blue-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <div>
-                            <h4 class="font-semibold text-gray-800 mb-1">${solusi.nama_solusi}</h4>
-                            <p class="text-gray-600 text-sm">${solusi.langkah_solusi}</p>
-                        </div>
+                        <p class="font-medium">Gejala yang dipilih memiliki ${diagnosesToShow.length} kemungkinan kerusakan.</p>
                     </div>
-                </li>
-            `).join('');
+                `;
+                list.appendChild(header);
+            }
 
-            li.innerHTML = `
-                <div class="flex flex-col space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-2">${highestCFDiagnosis.kerusakan}</h3>
-                            <div class="flex items-center space-x-3 mb-3">
-                                <div class="text-sm font-medium text-gray-600">Certainty Factor:</div>
-                                <div class="px-3 py-1 rounded-full ${displayedCF > 70 ? 'bg-red-100 text-red-600' : displayedCF > 40 ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'} text-sm font-semibold">
-                                    ${displayedCF.toFixed(1)}%
-                                </div>
+            // Display the diagnoses
+            diagnosesToShow.forEach((diagnosis, index) => {
+                const li = document.createElement('div');
+                li.className = 'bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 shadow-2xl border border-blue-100 hover:shadow-xl transition-all duration-300 mb-6 last:mb-0';
+
+                const solusiList = diagnosis.solusi.map(solusi => `
+                    <li class="bg-white border border-blue-100 rounded-lg p-4 mb-3 last:mb-0 hover:shadow-md transition-all duration-200">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-1">${solusi.nama_solusi}</h4>
+                                <p class="text-gray-600 text-sm">${solusi.langkah_solusi}</p>
                             </div>
-                            <p class="text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
-                                ${highestCFDiagnosis.deskripsi}
-                            </p>
+                        </div>
+                    </li>
+                `).join('');
+
+                const displayedCF = Math.min(diagnosis.cf * 100, 100);
+
+                li.innerHTML = `
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-2xl font-bold text-gray-900">
+                                        ${selectedGejala.length === 1 && diagnosesToShow.length > 1 
+                                            ? `Kerusakan ${index + 1}: ${diagnosis.kerusakan}`
+                                            : diagnosis.kerusakan
+                                        }
+                                    </h3>
+                                    <div class="px-3 py-1 rounded-full ${
+                                        displayedCF > 70 ? 'bg-red-100 text-red-600' : 
+                                        displayedCF > 40 ? 'bg-yellow-100 text-yellow-600' : 
+                                        'bg-green-100 text-green-600'
+                                    } text-sm font-semibold">
+                                        CF: ${displayedCF.toFixed(1)}%
+                                    </div>
+                                </div>
+                                <div class="mb-2 text-sm text-gray-600">
+                                    Berdasarkan ${selectedGejala.length} gejala yang dipilih
+                                </div>
+                                <p class="text-gray-700 leading-relaxed mb-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                    ${diagnosis.deskripsi}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Solusi Penanganan:</h4>
+                            <ul class="space-y-2">${solusiList}</ul>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Solusi Penanganan:</h4>
-                        <ul class="space-y-2">${solusiList}</ul>
-                    </div>
-                </div>
-            `;
-            list.appendChild(li);
+                `;
+                list.appendChild(li);
+            });
 
             const hasilDiagnosaSection = document.getElementById('hasilDiagnosa');
             hasilDiagnosaSection.classList.remove('hidden');
