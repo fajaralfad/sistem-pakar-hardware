@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SolusiResource\Pages;
 use App\Models\Solusi;
+use App\Models\Kerusakan;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
@@ -12,7 +13,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Resources\Table;
 
 class SolusiResource extends Resource
 {
@@ -48,11 +48,10 @@ class SolusiResource extends Resource
 
                         Select::make('kerusakan_id')
                             ->label('Kerusakan Terkait')
-                            ->relationship('kerusakan', 'nama_kerusakan')
+                            ->options(Kerusakan::all()->pluck('nama_kerusakan', 'id'))
                             ->searchable()
-                            ->required()
                             ->placeholder('Pilih kerusakan terkait')
-                            ->columnSpan('full'),
+                            ->required(),
                     ])
                     ->columns(1),
             ]);

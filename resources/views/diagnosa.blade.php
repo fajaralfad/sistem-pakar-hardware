@@ -195,13 +195,13 @@
             <!-- Header -->
             <div class="text-center mb-12">
                 <div class="inline-block p-2 px-4 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 mb-4">
-                    <span class="text-blue-600 font-medium">Expert System</span>
+                    <span class="text-blue-600 font-medium">Sistem Pakar</span>
                 </div>
                 <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
                     Sistem Pakar Diagnosa Hardware
                 </h1>
                 <p class="text-gray-600 max-w-2xl mx-auto">
-                    Sistem pintar untuk mendiagnosa masalah pada perangkat keras komputer Anda dengan metode Certainty Factor
+                    Sistem pintar untuk mendiagnosa masalah pada hardware atau perangkat keras laptop anda dengan metode Certainty Factor
                 </p>
             </div>
 
@@ -291,7 +291,7 @@
         </div>
         
         <div class="text-center text-xs text-gray-500 mt-6 border-t border-gray-200 pt-4">
-            <p>Sistem Pakar Diagnosa Hardware Pada Laptop| Developed by TechMedix Team</p>
+            <p>Sistem Pakar Diagnosa Hardware Pada Laptop | Developed by TechMedix Team</p>
         </div>
     </div>
 </footer>
