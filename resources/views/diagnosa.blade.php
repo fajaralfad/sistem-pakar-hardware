@@ -26,16 +26,6 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
         
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
         .select-custom {
             background-image: linear-gradient(to right, #4f46e5, #3b82f6);
             color: white;
@@ -211,7 +201,7 @@
                     <label class="block mb-4">
                         <span class="text-lg font-semibold text-gray-700 mb-2 block">Pilih Gejala yang Dialami</span>
                         <span class="text-sm text-gray-500 block mb-4">
-                            Centang satu atau lebih gejala yang Anda alami pada perangkat keras
+                            Centang satu atau lebih gejala yang Anda alami pada laptop
                         </span>
                     </label>
                     
@@ -320,20 +310,33 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
             const list = document.getElementById('diagnosaList');
             list.innerHTML = '';
 
-            // Determine which diagnoses to show based on number of symptoms
+            // Group diagnoses by kerusakan
+            const diagnosisGroups = hasilDiagnosa.reduce((groups, diagnosis) => {
+                const group = groups[diagnosis.kerusakan] || [];
+                group.push(diagnosis);
+                groups[diagnosis.kerusakan] = group;
+                return groups;
+            }, {});
+
+            // Determine which diagnoses to show
             let diagnosesToShow = [];
             
             if (selectedGejala.length === 1) {
                 // For single symptom, show all related diagnoses
                 diagnosesToShow = hasilDiagnosa;
             } else {
-                // For multiple symptoms, show only the highest CF
-                const highestCF = Math.max(...hasilDiagnosa.map(d => d.cf));
-                diagnosesToShow = hasilDiagnosa.filter(d => d.cf === highestCF);
+                // For multiple symptoms, show the highest CF for each unique kerusakan
+                Object.values(diagnosisGroups).forEach(group => {
+                    const highestCF = Math.max(...group.map(d => d.cf));
+                    const bestDiagnosis = group.find(d => d.cf === highestCF);
+                    if (bestDiagnosis) {
+                        diagnosesToShow.push(bestDiagnosis);
+                    }
+                });
             }
 
-            // Add header for single symptom case with multiple diagnoses
-            if (selectedGejala.length === 1 && diagnosesToShow.length > 1) {
+            // Add header for multiple diagnoses
+            if (diagnosesToShow.length > 1) {
                 const header = document.createElement('div');
                 header.className = 'mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg';
                 header.innerHTML = `
@@ -341,7 +344,7 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <p class="font-medium">Gejala yang dipilih memiliki ${diagnosesToShow.length} kemungkinan kerusakan.</p>
+                        <p class="font-medium">Ditemukan ${diagnosesToShow.length} kemungkinan kerusakan berbeda.</p>
                     </div>
                 `;
                 list.appendChild(header);
@@ -374,7 +377,7 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
                             <div class="flex-1">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-2xl font-bold text-gray-900">
-                                        ${selectedGejala.length === 1 && diagnosesToShow.length > 1 
+                                        ${diagnosesToShow.length > 1 
                                             ? `Kerusakan ${index + 1}: ${diagnosis.kerusakan}`
                                             : diagnosis.kerusakan
                                         }

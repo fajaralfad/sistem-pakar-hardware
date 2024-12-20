@@ -200,71 +200,70 @@
     </div>
 </div>
 
-    <!-- Hero Section -->
-    <div class="hero-wrapper hero-pattern">
-        <div class="hero min-h-screen">
-            <div class="hero-content flex-col lg:flex-row-reverse container mx-auto px-4 relative">
-                <!-- Right Side - Image & Stats -->
-                <div class="relative bg-gradient-to-r from-blue-600/20 to-violet-600/20 rounded-xl p-4 max-w-md mx-auto slide-up">
-                    <img src="/storage/images/hero.jpeg" alt="Computer Diagnosis"
-                         class="rounded-lg shadow-lg w-full h-auto object-cover" />
+   <!-- Hero Section -->
+<div class="hero-wrapper hero-pattern">
+    <div class="hero min-h-screen">
+        <div class="hero-content flex-col lg:flex-row-reverse container mx-auto px-4 relative">
+            <!-- Right Side - Image & Stats -->
+            <div class="relative bg-gradient-to-r from-blue-600/20 to-violet-600/20 rounded-xl p-4 max-w-md mx-auto slide-up">
+                <img src="/storage/images/hero.jpeg" alt="Computer Diagnosis" class="rounded-lg shadow-lg w-full h-auto object-cover" />
 
-                    <!-- Floating Stats Cards -->
-                    <div class="hero-card absolute top-1/2 -right-20 transform -translate-y-1/2 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-primary/20 p-3 rounded-full">
-                                <i class="fas fa-microchip text-primary text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm opacity-80">Hardware yang sudah diperbaiki</p>
-                                <p class="font-bold text-lg">1.000+</p>
-                            </div>
+                <!-- Floating Stats Cards -->
+                <div class="hero-card absolute top-1/2 -right-20 transform -translate-y-1/2 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-primary/20 p-3 rounded-full">
+                            <i class="fas fa-microchip text-primary text-xl"></i>
                         </div>
-                    </div>
-
-                    <div class="hero-card absolute bottom-4 -left-20 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-success/20 p-3 rounded-full">
-                                <i class="fas fa-check-circle text-success text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm opacity-80">Success Rate</p>
-                                <p class="font-bold text-lg">90.9%</p>
-                            </div>
+                        <div>
+                            <p class="text-sm text-opacity-80">Hardware yang sudah diperbaiki</p>
+                            <p class="font-bold text-lg">1.000+</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Left Side - Text Content -->
-                <div class="lg:w-1/2 text-center lg:text-left text-white z-10 slide-up">
-                    <h1 class="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4">
-                        <span class="typing-title">Sistem Pakar Diagnosis Kerusakan</span>
-                        <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                            <span class="typing-subtitle">Hardware pada laptop </span>
-                        </span>
-                    </h1>
-                    
-                    <p class="py-6 text-lg opacity-90">
-                        Dapatkan diagnosis instan dan akurat untuk setiap masalah yang terjadi pada perangkat keras PC atau laptop Anda 
-                        dengan menggunakan sistem pakar kami yang dirancang khusus untuk memberikan solusi terbaik.
-                        Dengan teknologi ini, Anda dapat menghemat waktu dan tenaga 
-                        dalam mengidentifikasi serta memperbaiki kerusakan perangkat keras dengan hasil yang terpercaya.
-                    </p>
-
-                    <div class="flex gap-4 justify-center lg:justify-start">
-                        <a href="/diagnosa" class="btn btn-primary btn-lg group">
-                            <i class="fas fa-stethoscope mr-2 group-hover:rotate-12 transition-transform"></i>
-                            Mulai Diagnosis
-                        </a>
-                        <a href="#how-it-works" class="btn btn-ghost btn-lg border-white text-white group">
-                            <i class="fas fa-arrow-down mr-2 group-hover:translate-y-1 transition-transform"></i>
-                           Pelajari Lagi
-                        </a>
+                <div class="hero-card absolute bottom-4 -left-20 p-4 bg-gray-800/90 text-white rounded-lg shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-success/20 p-3 rounded-full">
+                            <i class="fas fa-check-circle text-success text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-opacity-80">Success Rate</p>
+                            <p class="font-bold text-lg">90.9%</p>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Left Side - Text Content -->
+            <div class="lg:w-1/2 text-center lg:text-left text-white z-10 slide-up">
+                <h1 class="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4">
+                    <span>Sistem Pakar Diagnosis Kerusakan</span>
+                    <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                        Hardware pada Laptop
+                    </span>
+                </h1>
+                
+                <p class="py-6 text-lg text-opacity-90">
+                    Dapatkan diagnosis instan dan akurat untuk setiap masalah yang terjadi pada perangkat keras PC atau laptop Anda dengan
+                    menggunakan sistem pakar kami yang dirancang khusus untuk memberikan solusi terbaik. Dengan teknologi ini, Anda dapat
+                    menghemat waktu dan tenaga dalam mengidentifikasi serta memperbaiki kerusakan perangkat keras dengan hasil yang terpercaya.
+                </p>
+
+                <div class="flex gap-4 justify-center lg:justify-start">
+                    <a href="/diagnosa" class="btn btn-primary btn-lg group">
+                        <i class="fas fa-stethoscope mr-2 group-hover:rotate-12 transition-transform"></i>
+                        Mulai Diagnosis
+                    </a>
+                    <a href="#how-it-works" class="btn btn-ghost btn-lg border-white text-white group">
+                        <i class="fas fa-arrow-down mr-2 group-hover:translate-y-1 transition-transform"></i>
+                        Pelajari Lagi
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Bagian Fitur -->
     <div id="sistem" class="py-20 bg-base-100">
@@ -295,7 +294,7 @@
                             <i class="fas fa-tools text-3xl text-primary"></i>
                         </div>
                         <h3 class="card-title">Solusi Kerusakan</h3>
-                        <p>Panduan perbaikan pada kerusakan dan rekomendasi terbaik</p>
+                     <p>Panduan perbaikan pada kerusakan dan rekomendasi terbaik</p>
                     </div>
                 </div>
             </div>
