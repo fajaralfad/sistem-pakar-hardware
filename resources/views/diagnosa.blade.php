@@ -328,20 +328,26 @@ const searchSymptoms = () => {
 
 document.getElementById('searchSymptoms').addEventListener('input', searchSymptoms);
 
-// History storage functions
+// Modified save function to store symptom names
 const saveToHistory = (diagnosis, selectedSymptoms) => {
     const history = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
+    
+    // Get symptom names from selected checkboxes
+    const symptomNames = Array.from(document.querySelectorAll('input[name="gejala[]"]:checked'))
+        .map(checkbox => checkbox.closest('.checkbox-container').textContent.trim());
+
     const newEntry = {
         date: new Date().toISOString(),
         diagnosis: diagnosis,
-        symptoms: selectedSymptoms,
+        symptoms: symptomNames, // Store the actual symptom names
         id: Date.now()
     };
+    
     history.unshift(newEntry);
     localStorage.setItem('diagnosisHistory', JSON.stringify(history.slice(0, 10)));
 };
 
-// Show history modal
+// Updated history display function
 const showHistory = () => {
     const history = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
     const modalHTML = `
@@ -369,11 +375,36 @@ const showHistory = () => {
                                     })}
                                 </span>
                             </div>
-                            <div class="text-gray-700">
-                                ${entry.diagnosis.map(d => `
-                                    <p class="font-semibold">${d.kerusakan}</p>
-                                    <p class="text-sm mb-2">CF: ${(d.cf * 100).toFixed(1)}%</p>
-                                `).join('')}
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <h3 class="text-sm font-medium text-gray-600 mb-2">Gejala yang Dialami:</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${entry.symptoms.map(symptom => `
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                                                ${symptom}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    ${entry.diagnosis.map(d => `
+                                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <p class="font-semibold text-gray-800">${d.kerusakan}</p>
+                                                <span class="px-2.5 py-1 rounded-full text-xs font-medium ${
+                                                    d.cf * 100 > 70 ? 'bg-red-100 text-red-700' : 
+                                                    d.cf * 100 > 40 ? 'bg-yellow-100 text-yellow-700' : 
+                                                    'bg-green-100 text-green-700'
+                                                }">
+                                                    CF: ${(d.cf * 100).toFixed(1)}%
+                                                </span>
+                                            </div>
+                                            ${d.deskripsi ? `
+                                                <p class="text-sm text-gray-600 mt-2">${d.deskripsi}</p>
+                                            ` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>
                         </div>
                     `).join('')}
