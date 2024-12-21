@@ -4,6 +4,8 @@ Website ini merupakan sebuah sistem pakar yang dirancang untuk membantu pengguna
 
 ## Fitur Utama
 
-- **Interaksi User-Friendly**: Antarmuka yang mudah digunakan untuk memasukkan gejala kerusakan.
-- **Diagnosis Akurat**: Menyediakan kemungkinan kerusakan hardware berdasarkan gejala yang dimasukkan.
-- **Solusi dan Rekomendasi**: Memberikan panduan solusi untuk memperbaiki masalah yang terdeteksi.
+mganalisis kerusakan hardware, berdasarkan gejala yang dipilih sama user
+
+# FRAMEWORK YANG DIGUNAKAN 
+
+Menggunakan Laravel 10, tailwind css
