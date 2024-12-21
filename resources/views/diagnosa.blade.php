@@ -561,6 +561,6 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
             `;
         });
 });
-</script>
+   </script>
 </body>
 </html>
