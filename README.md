@@ -12,7 +12,7 @@ Sebuah sistem pakar berbasis web yang membantu pengguna mendiagnosis permasalaha
 
 ## 🛠 Teknologi yang Digunakan
 
-- **Framework**: Laravel 10
+- **Framework**: Laravel 
 - **Frontend**: Tailwind CSS 
 - **Database**: MySQL
 - **Server**: Apache/Nginx
