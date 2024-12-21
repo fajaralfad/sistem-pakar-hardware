@@ -288,7 +288,104 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
+// Add search and history UI elements
+document.querySelector('#symptomsList').insertAdjacentHTML('beforebegin', `
+    <div class="mb-4">
+        <div class="relative">
+            <input type="text" id="searchSymptoms" 
+                   class="w-full p-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                   placeholder="Cari gejala...">
+            <span class="absolute left-3 top-3 text-gray-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </span>
+        </div>
+    </div>
+`);
+
+document.querySelector('.navbar-end').insertAdjacentHTML('beforeend', `
+    <button id="historyBtn" class="btn btn-ghost btn-circle mr-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+    </button>
+`);
+
+// Search functionality
+const searchSymptoms = () => {
+    const searchInput = document.getElementById('searchSymptoms');
+    const filter = searchInput.value.toLowerCase();
+    const symptoms = document.querySelectorAll('.checkbox-container');
+
+    symptoms.forEach(symptom => {
+        const text = symptom.textContent.toLowerCase();
+        symptom.style.display = text.includes(filter) ? '' : 'none';
+    });
+};
+
+document.getElementById('searchSymptoms').addEventListener('input', searchSymptoms);
+
+// History storage functions
+const saveToHistory = (diagnosis, selectedSymptoms) => {
+    const history = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
+    const newEntry = {
+        date: new Date().toISOString(),
+        diagnosis: diagnosis,
+        symptoms: selectedSymptoms,
+        id: Date.now()
+    };
+    history.unshift(newEntry);
+    localStorage.setItem('diagnosisHistory', JSON.stringify(history.slice(0, 10)));
+};
+
+// Show history modal
+const showHistory = () => {
+    const history = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
+    const modalHTML = `
+        <div id="historyModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-6 max-w-2xl w-full m-4 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Riwayat Diagnosa</h2>
+                    <button onclick="document.getElementById('historyModal').remove()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                ${history.length === 0 ? '<p class="text-gray-500">Belum ada riwayat diagnosa</p>' : 
+                    history.map(entry => `
+                        <div class="border-b border-gray-200 py-4 last:border-0">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-500">
+                                    ${new Date(entry.date).toLocaleDateString('id-ID', {
+                                        day: 'numeric',
+                                        month: 'long',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    })}
+                                </span>
+                            </div>
+                            <div class="text-gray-700">
+                                ${entry.diagnosis.map(d => `
+                                    <p class="font-semibold">${d.kerusakan}</p>
+                                    <p class="text-sm mb-2">CF: ${(d.cf * 100).toFixed(1)}%</p>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+};
+
+document.getElementById('historyBtn').addEventListener('click', showHistory);
+
+// Form submission handler
 document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -307,6 +404,7 @@ document.getElementById('diagnosaForm').addEventListener('submit', function(e) {
     axios.post('/diagnosa', { gejala: selectedGejala })
         .then(response => {
             const hasilDiagnosa = response.data;
+            saveToHistory(hasilDiagnosa, selectedGejala);
             const list = document.getElementById('diagnosaList');
             list.innerHTML = '';
 
