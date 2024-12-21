@@ -4,7 +4,7 @@ Website ini merupakan sebuah sistem pakar yang dirancang untuk membantu pengguna
 
 ## Fitur Utama
 
-mganalisis kerusakan hardware, berdasarkan gejala yang dipilih sama user
+menganalisis kerusakan hardware, berdasarkan gejala yang dipilih user(Pengguna)
 
 # FRAMEWORK YANG DIGUNAKAN 
 
